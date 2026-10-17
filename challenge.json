@@ -1,0 +1,7 @@
+{
+  "id": "notes-vault",
+  "title": "Notes Vault",
+  "difficulty": "starter",
+  "starterOnly": true,
+  "privateTestsExcluded": true
+}
