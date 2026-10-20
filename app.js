@@ -38,3 +38,19 @@ function renderNoteSummary() {
   summary.textContent = notes.length + " note(s) · " + notes.reduce((total, note) => total + note.body.length, 0) + " body characters"; host.querySelector("h2")?.after(summary);
 }
 renderNoteSummary();
+
+
+// Notes expansion: word-count summary and selected-note preview.
+(() => {
+  const baseRender = render; let selected = null;
+  const enhance = () => {
+    if (document.querySelector("#notes-tools")) return;
+    const panel = document.createElement("section"); panel.id = "notes-tools"; panel.className = "item";
+    panel.innerHTML = '<strong>Notes tools</strong><button id="preview-note" type="button">Preview latest</button><p id="notes-summary" class="muted small"></p>';
+    document.querySelector("#app")?.append(panel);
+    panel.querySelector("#preview-note").onclick = () => { selected = notes[notes.length - 1] || null; panel.querySelector("#notes-summary").textContent = selected ? selected.title + " · " + selected.body.split(" ").length + " words" : "No notes"; };
+    panel.querySelector("#notes-summary").textContent = notes.length + " note(s)";
+  };
+  render = () => { baseRender(); enhance(); };
+  enhance();
+})();
