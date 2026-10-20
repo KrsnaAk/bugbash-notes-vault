@@ -29,3 +29,12 @@ function render() {
   );
 }
 render();
+
+
+// Added organizer feature: visible note character count.
+function renderNoteSummary() {
+  const host = document.querySelector("#app"); if (!host || document.querySelector("#note-summary")) return;
+  const summary = document.createElement("p"); summary.id = "note-summary"; summary.className = "muted small";
+  summary.textContent = notes.length + " note(s) · " + notes.reduce((total, note) => total + note.body.length, 0) + " body characters"; host.querySelector("h2")?.after(summary);
+}
+renderNoteSummary();
